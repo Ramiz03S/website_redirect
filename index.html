@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <!-- makes the css viewport match the device's pixels and to not zoom in or out be default, basically makes mobiles not view page in desktop mode-->
+  <title>Redirecting…</title>
+  <script>
+    
+    const isMobile = /Mobi|Android|iP(hone|od|ad)|BlackBerry|WPDesktop|Windows Phone/.test(navigator.userAgent);
+
+    
+    const desktopURL = "";
+    const mobileURL  = "";
+
+    // runs when the page fully loads
+	// window.location represents the current browser URL, window.location.href is a string holding the full url of the page
+	// when assigning a new URL to href the browser navigates to the new URL and adds the current page to history
+	// .replace() navigates but replaces the current history entry
+    window.onload = () => {
+      try {
+        window.top.location.replace(isMobile ? mobileURL : desktopURL);
+      } catch (e) {
+        // fallback if sandbox blocks top navigation
+        window.location.href = isMobile ? mobileURL : desktopURL;
+      }
+    };
+  </script>
+</head>
+<body>
+  <!-- In case JS is off, meta-refresh to desktop by default -->
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=https://www.yoursite.com">
+  </noscript>
+</body>
+</html>
